@@ -1,4 +1,4 @@
-#Learning Extension
+# Learning Extension
 
 A Chrome extension and web application that helps you track focus sessions and learn more effectively.
 
