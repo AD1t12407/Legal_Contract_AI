@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What did you learn?</title>
+  <link rel="stylesheet" href="learning.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="brain"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.04Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.04Z"></path></svg>
+        <h1>AutoPom</h1>
+      </div>
+    </div>
+    
+    <div class="content">
+      <div class="prompt-header">
+        <h2>What did you learn?</h2>
+        <p>Great job completing your focus session! Take a moment to capture what you've learned.</p>
+      </div>
+      
+      <div class="learning-form">
+        <div class="learning-items">
+          <div class="learning-item">
+            <div class="learning-number">1</div>
+            <textarea placeholder="I learned that..."></textarea>
+          </div>
+          <div class="learning-item">
+            <div class="learning-number">2</div>
+            <textarea placeholder="I discovered that..."></textarea>
+          </div>
+          <div class="learning-item">
+            <div class="learning-number">3</div>
+            <textarea placeholder="I realized that..."></textarea>
+          </div>
+          <div class="learning-item">
+            <div class="learning-number">4</div>
+            <textarea placeholder="I understood that..."></textarea>
+          </div>
+          <div class="learning-item">
+            <div class="learning-number">5</div>
+            <textarea placeholder="I found out that..."></textarea>
+          </div>
+        </div>
+        
+        <div class="role-selector">
+          <label for="role-select">Customize resources for:</label>
+          <select id="role-select">
+            <option value="student">Student</option>
+            <option value="researcher">Researcher</option>
+            <option value="professional">Professional</option>
+          </select>
+        </div>
+        
+        <div class="form-actions">
+          <button id="skip-button" class="btn btn-text">Skip for now</button>
+          <button id="submit-button" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+            Submit Learnings
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer">
+      <p class="info-text">Your learnings will be enhanced with AI-powered resources and quizzes.</p>
+    </div>
+  </div>
+  
+  <script src="learning.js"></script>
+</body>
+</html>
