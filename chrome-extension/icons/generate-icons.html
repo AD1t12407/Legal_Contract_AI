@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Extension Icons</title>
+</head>
+<body>
+    <h2>Extension Icon Generator</h2>
+    <p>Right-click on each canvas and "Save image as..." to create the icon files:</p>
+    
+    <h3>icon16.png</h3>
+    <canvas id="icon16" width="16" height="16"></canvas>
+    
+    <h3>icon48.png</h3>
+    <canvas id="icon48" width="48" height="48"></canvas>
+    
+    <h3>icon128.png</h3>
+    <canvas id="icon128" width="128" height="128"></canvas>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#4F46E5';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Brain emoji (simplified for small sizes)
+            ctx.fillStyle = 'white';
+            ctx.font = `${Math.floor(size * 0.4)}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            if (size >= 48) {
+                ctx.fillText('🧠', size/2, size/2 - size*0.1);
+                ctx.font = `${Math.floor(size * 0.15)}px Arial`;
+                ctx.fillText('Learn', size/2, size/2 + size*0.2);
+            } else {
+                ctx.fillText('🧠', size/2, size/2);
+            }
+        }
+        
+        // Generate all icon sizes
+        drawIcon(document.getElementById('icon16'), 16);
+        drawIcon(document.getElementById('icon48'), 48);
+        drawIcon(document.getElementById('icon128'), 128);
+    </script>
+</body>
+</html>

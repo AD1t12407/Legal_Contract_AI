@@ -11,55 +11,63 @@ interface StatsPanelProps {
 }
 
 const StatsPanel: React.FC<StatsPanelProps> = ({ stats }) => {
+  const statCards = [
+    {
+      title: 'Total Sessions',
+      value: stats.totalSessions,
+      unit: '',
+      icon: Target,
+      gradient: 'var(--primary-gradient)',
+      color: 'var(--text-accent)'
+    },
+    {
+      title: 'Total Focus Time',
+      value: stats.totalFocusTime,
+      unit: 'min',
+      icon: Clock,
+      gradient: 'var(--secondary-gradient)',
+      color: 'var(--text-accent)'
+    },
+    {
+      title: 'Avg. Session Length',
+      value: stats.avgSessionLength,
+      unit: 'min',
+      icon: Brain,
+      gradient: 'var(--accent-gradient)',
+      color: 'var(--text-accent)'
+    },
+    {
+      title: 'Avg. Interruptions',
+      value: stats.avgInterruptions,
+      unit: '',
+      icon: AlertCircle,
+      gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+      color: '#ef4444'
+    }
+  ];
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <div className="bg-white rounded-lg shadow-md p-4 border-l-4 border-primary-500">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-gray-500 mb-1">Total Sessions</p>
-            <p className="text-2xl font-bold text-gray-800">{stats.totalSessions}</p>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      {statCards.map((stat, index) => {
+        const IconComponent = stat.icon;
+        return (
+          <div key={index} className="card p-6 text-center">
+            <div
+              className="w-12 h-12 rounded-lg flex items-center justify-center mb-4 mx-auto"
+              style={{ background: stat.gradient }}
+            >
+              <IconComponent className="h-6 w-6" style={{ color: 'var(--text-primary)' }} />
+            </div>
+            <div className="text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+              {stat.value}
+              {stat.unit && <span className="text-lg ml-1" style={{ color: 'var(--text-secondary)' }}>{stat.unit}</span>}
+            </div>
+            <div className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+              {stat.title}
+            </div>
           </div>
-          <div className="p-3 bg-primary-100 rounded-lg">
-            <Target className="h-5 w-5 text-primary-600" />
-          </div>
-        </div>
-      </div>
-      
-      <div className="bg-white rounded-lg shadow-md p-4 border-l-4 border-secondary-500">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-gray-500 mb-1">Total Focus Time</p>
-            <p className="text-2xl font-bold text-gray-800">{stats.totalFocusTime} min</p>
-          </div>
-          <div className="p-3 bg-secondary-100 rounded-lg">
-            <Clock className="h-5 w-5 text-secondary-600" />
-          </div>
-        </div>
-      </div>
-      
-      <div className="bg-white rounded-lg shadow-md p-4 border-l-4 border-accent-500">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-gray-500 mb-1">Avg. Session Length</p>
-            <p className="text-2xl font-bold text-gray-800">{stats.avgSessionLength} min</p>
-          </div>
-          <div className="p-3 bg-accent-100 rounded-lg">
-            <Brain className="h-5 w-5 text-accent-600" />
-          </div>
-        </div>
-      </div>
-      
-      <div className="bg-white rounded-lg shadow-md p-4 border-l-4 border-error-500">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm text-gray-500 mb-1">Avg. Interruptions</p>
-            <p className="text-2xl font-bold text-gray-800">{stats.avgInterruptions}</p>
-          </div>
-          <div className="p-3 bg-error-100 rounded-lg">
-            <AlertCircle className="h-5 w-5 text-error-600" />
-          </div>
-        </div>
-      </div>
+        );
+      })}
     </div>
   );
 };

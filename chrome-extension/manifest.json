@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "AutoPom Learning Extension",
-  "version": "0.1.0",
-  "description": "Track focus sessions and capture learning moments",
+  "name": "AutoPom - AI Learning Assistant for Rural India",
+  "version": "1.0.0",
+  "description": "Multilingual AI-powered learning platform with voice support for rural and underprivileged students in India",
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -20,13 +20,32 @@
     "service_worker": "background.js",
     "type": "module"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "permissions": [
     "tabs",
     "webNavigation",
     "idle",
-    "storage"
+    "storage",
+    "activeTab",
+    "scripting",
+    "notifications",
+    "offscreen"
   ],
   "host_permissions": [
-    "<all_urls>"
+    "<all_urls>",
+    "http://localhost:8000/*",
+    "https://api.autopom.app/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["learning.html", "offline.html", "assets/*"],
+      "matches": ["<all_urls>"]
+    }
   ]
 }

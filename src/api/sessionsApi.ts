@@ -2,7 +2,7 @@ import axios from 'axios';
 import { FocusSession, Learning } from '../contexts/FocusSessionContext';
 
 // Base API URL - from environment variables with fallback
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8001';
 console.log('API URL:', API_URL); // Debug log
 
 // API client with default configuration

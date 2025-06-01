@@ -8,63 +8,410 @@
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <div class="logo">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="brain"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.04Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.04Z"></path></svg>
-        <h1>AutoPom</h1>
-      </div>
-      <div class="status" id="status-indicator">
-        <span class="status-dot"></span>
-        <span class="status-text">Ready</span>
-      </div>
-    </div>
-    
-    <div class="content">
-      <div id="focus-controls">
-        <button id="start-focus" class="btn btn-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-          Start Focus Session
-        </button>
-        <button id="stop-focus" class="btn btn-danger" style="display: none;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-          End Focus Session
-        </button>
-      </div>
-      
-      <div id="session-info" style="display: none;">
-        <div class="timer">
-          <div class="timer-label">Session Duration</div>
-          <div class="timer-value" id="timer-display">00:00</div>
+
+    <!-- Landing Page -->
+    <div id="landing-page" class="page landing-page active">
+      <div class="landing-hero">
+        <div class="hero-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.04Z"></path>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.04Z"></path>
+          </svg>
         </div>
-        
-        <div class="interruptions">
-          <div class="interruptions-label">Interruptions</div>
-          <div class="interruptions-value" id="interruptions-count">0</div>
-        </div>
-      </div>
-      
-      <div class="separator"></div>
-      
-      <div class="stats">
-        <div class="stats-item">
-          <div class="stats-label">Today</div>
-          <div class="stats-value" id="today-focus">0 min</div>
-        </div>
-        <div class="stats-item">
-          <div class="stats-label">This Week</div>
-          <div class="stats-value" id="week-focus">0 min</div>
+        <h1 class="hero-title">Turn learning ideas into concepts instantly with GenAI</h1>
+        <p class="hero-subtitle">Visualize, communicate, and iterate on educational content in minutes. Empower your learning journey with AI!</p>
+        <div class="hero-actions">
+          <button id="get-started-btn" class="btn btn-primary btn-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+            </svg>
+            Get Started
+          </button>
+          <button id="sign-in-btn" class="btn btn-outline">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+            Sign In
+          </button>
         </div>
       </div>
     </div>
-    
-    <div class="footer">
-      <a href="https://autopom.app" target="_blank" class="dashboard-link">
-        Open Dashboard
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-      </a>
+
+    <!-- Sign Up Page -->
+    <div id="signup-page" class="page auth-page">
+      <div class="auth-container">
+        <div class="auth-header">
+          <h2 class="auth-title">Create Account</h2>
+          <p class="auth-subtitle">Join thousands of learners worldwide</p>
+        </div>
+        <form class="auth-form" id="signup-form">
+          <div class="form-group">
+            <label class="form-label" for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" class="form-input" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-email">Email Address</label>
+            <input type="email" id="signup-email" class="form-input" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-password">Password</label>
+            <input type="password" id="signup-password" class="form-input" placeholder="Create a password" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-language">Preferred Language</label>
+            <select id="signup-language" class="form-input" required>
+              <option value="">Select your language</option>
+              <option value="en">🇺🇸 English</option>
+              <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+              <option value="te">🇮🇳 తెలుగు (Telugu)</option>
+              <option value="ta">🇮🇳 தமிழ் (Tamil)</option>
+              <option value="bn">🇮🇳 বাংলা (Bengali)</option>
+              <option value="kn">🇮🇳 ಕನ್ನಡ (Kannada)</option>
+            </select>
+          </div>
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              Create Account
+            </button>
+            <button type="button" id="back-to-landing" class="btn btn-ghost">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5"></path>
+                <path d="M12 19l-7-7 7-7"></path>
+              </svg>
+              Back
+            </button>
+          </div>
+        </form>
+        <div class="auth-link">
+          <span>Already have an account? </span>
+          <a href="#" id="show-signin">Sign in here</a>
+        </div>
+      </div>
     </div>
+
+    <!-- Sign In Page -->
+    <div id="signin-page" class="page auth-page">
+      <div class="auth-container">
+        <div class="auth-header">
+          <h2 class="auth-title">Welcome Back</h2>
+          <p class="auth-subtitle">Sign in to continue your learning journey</p>
+        </div>
+        <form class="auth-form" id="signin-form">
+          <div class="form-group">
+            <label class="form-label" for="signin-email">Email Address</label>
+            <input type="email" id="signin-email" class="form-input" placeholder="Enter your email" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signin-password">Password</label>
+            <input type="password" id="signin-password" class="form-input" placeholder="Enter your password" required>
+          </div>
+          <div class="auth-actions">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                <polyline points="10 17 15 12 10 7"></polyline>
+                <line x1="15" y1="12" x2="3" y2="12"></line>
+              </svg>
+              Sign In
+            </button>
+            <button type="button" id="back-to-landing-signin" class="btn btn-ghost">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 12H5"></path>
+                <path d="M12 19l-7-7 7-7"></path>
+              </svg>
+              Back
+            </button>
+          </div>
+        </form>
+
+        <!-- Demo User Info -->
+        <div class="demo-info">
+          <h4 class="demo-title">🎯 Try Demo Account</h4>
+          <div class="demo-credentials">
+            <p><strong>Email:</strong> demo@autopom.app</p>
+            <p><strong>Password:</strong> demo123</p>
+            <p class="demo-note">Demo user: Priya Sharma from rural Maharashtra</p>
+          </div>
+          <button id="fill-demo-credentials" class="btn btn-outline btn-sm">
+            Fill Demo Credentials
+          </button>
+        </div>
+
+        <div class="auth-link">
+          <span>Don't have an account? </span>
+          <a href="#" id="show-signup">Create one here</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboard-page" class="page dashboard-page">
+      <div class="header">
+        <div class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.04Z"></path>
+            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.04Z"></path>
+          </svg>
+          <h1>AutoPom</h1>
+        </div>
+        <div class="header-controls">
+          <div class="language-selector">
+            <select id="language-select" title="Select Language">
+              <option value="en">🇺🇸 English</option>
+              <option value="hi">🇮🇳 हिन्दी</option>
+              <option value="te">🇮🇳 తెలుగు</option>
+              <option value="ta">🇮🇳 தமிழ்</option>
+              <option value="bn">🇮🇳 বাংলা</option>
+              <option value="kn">🇮🇳 ಕನ್ನಡ</option>
+            </select>
+          </div>
+          <div class="status" id="status-indicator">
+            <span class="status-dot online"></span>
+            <span class="status-text">Online</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-content">
+        <!-- Voice Assistant Interface -->
+        <div class="card voice-interface">
+          <div class="card-header">
+            <h3 class="card-title">AI Voice Assistant</h3>
+            <div class="feature-status">
+              <span class="status-dot online"></span>
+              <span>Ready</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <p class="mb-lg">Ask questions, get explanations, or practice conversations in your preferred language.</p>
+            <div class="voice-visualizer" id="voice-visualizer">
+              <div class="voice-bar"></div>
+              <div class="voice-bar"></div>
+              <div class="voice-bar"></div>
+              <div class="voice-bar"></div>
+              <div class="voice-bar"></div>
+              <div class="voice-bar"></div>
+              <div class="voice-bar"></div>
+              <div class="voice-bar"></div>
+            </div>
+            <div class="voice-controls">
+              <button id="voice-assistant-btn" class="btn btn-voice">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+                <span id="voice-btn-text">Start Voice Chat</span>
+              </button>
+              <button id="voice-settings-btn" class="btn btn-outline btn-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M12 1v6m0 6v6m11-7h-6m-6 0H1"></path>
+                </svg>
+                Settings
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Focus Session Card -->
+        <div class="card session-card">
+          <div class="card-header">
+            <h3 class="card-title">Focus Session</h3>
+            <div class="feature-status">
+              <span class="status-dot" id="focus-status-dot"></span>
+              <span id="focus-status-text">Ready</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="timer-display" id="session-info">
+              <div class="timer-label">Session Duration</div>
+              <div class="timer-value" id="timer-display">00:00</div>
+            </div>
+            <div class="session-stats">
+              <div class="stat-item">
+                <div class="stat-label">Interruptions</div>
+                <div class="stat-value" id="interruptions-count">0</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Focus Score</div>
+                <div class="stat-value" id="focus-score-value">--</div>
+              </div>
+            </div>
+            <div class="mt-lg">
+              <button id="start-focus" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span>Start Focus Session</span>
+              </button>
+              <button id="stop-focus" class="btn btn-secondary hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="4" width="4" height="16"></rect>
+                  <rect x="14" y="4" width="4" height="16"></rect>
+                </svg>
+                <span>End Session</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Learning Features Grid -->
+        <div class="feature-grid">
+          <div class="feature-card learning-interface" id="language-learning-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+            </div>
+            <h4 class="feature-title">Language Learning</h4>
+            <p class="feature-description">Interactive lessons in Hindi, Telugu, Tamil, Bengali, and Kannada with voice support.</p>
+            <div class="language-progress">
+              <div class="progress-item">
+                <div class="progress-circle">75%</div>
+                <div class="progress-label">Vocabulary</div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-circle">60%</div>
+                <div class="progress-label">Grammar</div>
+              </div>
+              <div class="progress-item">
+                <div class="progress-circle">85%</div>
+                <div class="progress-label">Speaking</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-card" id="quiz-generator-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+            </div>
+            <h4 class="feature-title">AI Quiz Generator</h4>
+            <p class="feature-description">Generate personalized quizzes based on your learning progress and interests.</p>
+            <div class="feature-status">
+              <span class="status-dot online"></span>
+              <span>Available</span>
+            </div>
+          </div>
+
+          <div class="feature-card" id="offline-mode-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <h4 class="feature-title">Offline Mode</h4>
+            <p class="feature-description">Continue learning even without internet connection using local AI models.</p>
+            <div class="feature-status">
+              <span class="status-dot offline"></span>
+              <span>Offline Ready</span>
+            </div>
+          </div>
+
+          <div class="feature-card" id="accessibility-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="10" r="3"></circle>
+                <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662"></path>
+              </svg>
+            </div>
+            <h4 class="feature-title">Accessibility Features</h4>
+            <p class="feature-description">Screen reader support, high contrast mode, and simplified interfaces for all learners.</p>
+            <div class="feature-status">
+              <span class="status-dot online"></span>
+              <span>Enabled</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+          <div class="quick-action" id="quick-quiz">
+            <div class="quick-action-icon">🧠</div>
+            <div class="quick-action-label">Quick Quiz</div>
+          </div>
+          <div class="quick-action" id="voice-practice">
+            <div class="quick-action-icon">🎤</div>
+            <div class="quick-action-label">Voice Practice</div>
+          </div>
+          <div class="quick-action" id="simple-mode">
+            <div class="quick-action-icon">⚡</div>
+            <div class="quick-action-label">Simple Mode</div>
+          </div>
+          <div class="quick-action" id="sync-data">
+            <div class="quick-action-icon">🔄</div>
+            <div class="quick-action-label">Sync Data</div>
+          </div>
+        </div>
+
+        <!-- Daily Stats -->
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Today's Progress</h3>
+          </div>
+          <div class="card-content">
+            <div class="session-stats">
+              <div class="stat-item">
+                <div class="stat-label">Focus Time</div>
+                <div class="stat-value" id="today-focus">0 min</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Lessons</div>
+                <div class="stat-value" id="today-lessons">0</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Quizzes</div>
+                <div class="stat-value" id="today-quizzes">0</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-label">Streak</div>
+                <div class="stat-value" id="learning-streak">0 days</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="footer-content">
+          <button id="logout-btn" class="btn btn-ghost btn-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <polyline points="16 17 21 12 16 7"></polyline>
+              <line x1="21" y1="12" x2="9" y2="12"></line>
+            </svg>
+            Logout
+          </button>
+          <a href="https://autopom.app" target="_blank" class="dashboard-link">
+            Full Dashboard
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
-  
+
   <script type="module" src="popup.js"></script>
 </body>
 </html>

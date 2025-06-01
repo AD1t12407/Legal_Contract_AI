@@ -14,37 +14,61 @@
         <h1>AutoPom</h1>
       </div>
     </div>
-    
+
     <div class="content">
       <div class="prompt-header">
         <h2>What did you learn?</h2>
         <p>Great job completing your focus session! Take a moment to capture what you've learned.</p>
       </div>
-      
+
       <div class="learning-form">
+        <!-- Voice Input Section -->
+        <div class="voice-section">
+          <div class="voice-controls">
+            <button id="voice-record-btn" class="btn btn-voice" title="Record your learning">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+              <span id="voice-btn-text">Speak your learning</span>
+            </button>
+            <div id="voice-status" class="voice-status hidden">
+              <div class="recording-indicator">
+                <div class="pulse"></div>
+                <span>Recording... <span id="recording-time">0:00</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="voice-divider">
+            <span>or</span>
+          </div>
+        </div>
+
         <div class="learning-items">
           <div class="learning-item">
             <div class="learning-number">1</div>
-            <textarea placeholder="I learned that..."></textarea>
+            <textarea placeholder="I learned that..." id="learning-1"></textarea>
           </div>
           <div class="learning-item">
             <div class="learning-number">2</div>
-            <textarea placeholder="I discovered that..."></textarea>
+            <textarea placeholder="I discovered that..." id="learning-2"></textarea>
           </div>
           <div class="learning-item">
             <div class="learning-number">3</div>
-            <textarea placeholder="I realized that..."></textarea>
+            <textarea placeholder="I realized that..." id="learning-3"></textarea>
           </div>
           <div class="learning-item">
             <div class="learning-number">4</div>
-            <textarea placeholder="I understood that..."></textarea>
+            <textarea placeholder="I understood that..." id="learning-4"></textarea>
           </div>
           <div class="learning-item">
             <div class="learning-number">5</div>
-            <textarea placeholder="I found out that..."></textarea>
+            <textarea placeholder="I found out that..." id="learning-5"></textarea>
           </div>
         </div>
-        
+
         <div class="role-selector">
           <label for="role-select">Customize resources for:</label>
           <select id="role-select">
@@ -53,7 +77,7 @@
             <option value="professional">Professional</option>
           </select>
         </div>
-        
+
         <div class="form-actions">
           <button id="skip-button" class="btn btn-text">Skip for now</button>
           <button id="submit-button" class="btn btn-primary">
@@ -63,12 +87,12 @@
         </div>
       </div>
     </div>
-    
+
     <div class="footer">
       <p class="info-text">Your learnings will be enhanced with AI-powered resources and quizzes.</p>
     </div>
   </div>
-  
-  <script src="learning.js"></script>
+
+  <script type="module" src="learning.js"></script>
 </body>
 </html>

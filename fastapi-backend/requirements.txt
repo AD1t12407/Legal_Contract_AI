@@ -13,3 +13,27 @@ langchain-community>=0.0.10
 tavily-python>=0.2.0
 openai>=1.0.0
 gunicorn>=20.1.0
+
+# Multilingual support for Indian languages
+transformers>=4.36.0
+torch>=2.1.0
+sentencepiece>=0.1.99
+langdetect>=1.0.9
+googletrans>=4.0.0rc1
+
+# Speech processing
+openai-whisper>=20231117
+gtts>=2.4.0
+elevenlabs>=0.2.26
+
+# Audio processing
+pydub>=0.25.1
+librosa>=0.10.1
+
+# Offline LLM support
+onnxruntime>=1.16.3
+optimum>=1.16.0
+
+# Additional utilities for rural connectivity
+requests>=2.31.0
+aiofiles>=23.2.1

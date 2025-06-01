@@ -1,6 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useWebSocket } from './WebSocketContext';
 import { fetchSessions, fetchLearnings, createLearning } from '../api/sessionsApi';
+import {
+  createLearningCard,
+  getLearningCards,
+  LearningCard as APILearningCard
+} from '../api/learningApi';
 import { parseISO, isValid } from 'date-fns';
 
 export interface Interruption {
@@ -15,18 +20,47 @@ export interface Learning {
   sessionId: string;
   content: string;
   createdAt: string;
+  role?: string;
+  processed?: boolean;
   resources?: {
     title: string;
     url: string;
-    type: 'article' | 'video' | 'book' | 'other';
+    type: 'article' | 'video' | 'book' | 'course' | 'pdf' | 'other';
+    snippet?: string;
   }[];
   quiz?: {
     question: string;
     options?: string[];
     answer?: string;
+    correct_answer?: string;
     explanation?: string;
   }[];
 }
+
+// Helper function to convert API learning card to our Learning interface
+const convertAPILearningToLearning = (apiLearning: APILearningCard): Learning => {
+  return {
+    id: apiLearning.id,
+    sessionId: apiLearning.session_id,
+    content: apiLearning.content,
+    createdAt: apiLearning.created_at,
+    role: apiLearning.role,
+    processed: apiLearning.processed,
+    resources: apiLearning.resources?.map(resource => ({
+      title: resource.title,
+      url: resource.url,
+      type: resource.type as 'article' | 'video' | 'book' | 'course' | 'pdf' | 'other',
+      snippet: resource.snippet
+    })),
+    quiz: apiLearning.quiz?.map(quiz => ({
+      question: quiz.question,
+      options: quiz.options,
+      answer: quiz.correct_answer,
+      correct_answer: quiz.correct_answer,
+      explanation: quiz.explanation
+    }))
+  };
+};
 
 export interface FocusSession {
   id: string;
@@ -134,28 +168,46 @@ export const FocusSessionProvider: React.FC<{ children: ReactNode }> = ({ childr
         // Set sessions
         setFocusSessions(sessionsData);
         
-        // Fetch learnings
+        // Fetch learnings using new learning cards API
         let learningsData: Learning[] = [];
         try {
-          const learningItems = await fetchLearnings();
-          console.log('Fetched learnings:', learningItems);
-          
-          if (learningItems && learningItems.length > 0) {
-            // Filter out duplicates by ID
-            learningsData = Array.from(
-              new Map(learningItems.map(item => [item.id, item])).values()
-            );
+          console.log('🤖 Fetching learning cards from agent system...');
+          const apiLearningCards = await getLearningCards();
+          console.log('Fetched learning cards:', apiLearningCards);
+
+          if (apiLearningCards && apiLearningCards.length > 0) {
+            // Convert API learning cards to our Learning interface
+            learningsData = apiLearningCards.map(convertAPILearningToLearning);
+            console.log('✅ Converted learning cards:', learningsData);
+            console.log('✅ Learning cards count:', learningsData.length);
           } else {
-            console.log('No learnings from API, using mock data');
+            console.log('No learning cards from API, using mock data');
             learningsData = mockLearnings;
           }
         } catch (error) {
-          console.error('Failed to fetch learnings:', error);
-          learningsData = mockLearnings;
+          console.error('❌ Failed to fetch learning cards:', error);
+          // Try fallback to old API
+          try {
+            const learningItems = await fetchLearnings();
+            console.log('Fetched learnings from fallback API:', learningItems);
+
+            if (learningItems && learningItems.length > 0) {
+              learningsData = Array.from(
+                new Map(learningItems.map(item => [item.id, item])).values()
+              );
+            } else {
+              learningsData = mockLearnings;
+            }
+          } catch (fallbackError) {
+            console.error('Fallback API also failed:', fallbackError);
+            learningsData = mockLearnings;
+          }
         }
         
         // Set learnings
+        console.log('🔄 Setting learnings data:', learningsData);
         setLearnings(learningsData);
+        console.log('✅ Learnings state updated');
       } catch (error) {
         console.error('Failed to load initial data:', error);
         
@@ -463,38 +515,41 @@ export const FocusSessionProvider: React.FC<{ children: ReactNode }> = ({ childr
     try {
       // Get active session ID or use test session if none is active
       const sessionId = activeFocusSession?.id || 'test-session-123';
-      
-      // Prepare learning data for the API
-      const learningData = {
-        session_id: sessionId,  // Use session_id to match the backend model
+
+      console.log('🤖 Creating learning card with agent system...');
+      console.log('Content:', content);
+
+      // Use the new learning cards API with agent system
+      const apiLearningCard = await createLearningCard({
+        session_id: sessionId,
         content,
         role: 'student'
-      };
-      
-      console.log('Submitting learning:', learningData);
-      
-      // Send to API and get the response
-      const newLearning = await createLearning(learningData);
-      console.log('Created learning:', newLearning);
-      
-      // Always ensure we have resources and quiz data
+      });
+
+      console.log('✅ Created learning card:', apiLearningCard);
+
+      // Convert API response to our Learning interface
+      const newLearning = convertAPILearningToLearning(apiLearningCard);
+
+      // Add placeholder content while agent system processes
       const withPlaceholders = {
         ...newLearning,
-        resources: newLearning.resources || [{ 
-          title: 'Resources are being generated...', 
-          url: '#', 
-          type: 'article' as const 
+        resources: newLearning.resources?.length ? newLearning.resources : [{
+          title: '🤖 AI agents are finding educational resources...',
+          url: '#',
+          type: 'article' as const,
+          snippet: 'Our AI agents are searching for the best educational resources related to your learning content.'
         }],
-        quiz: newLearning.quiz || [{
-          question: 'What is a key concept in your learning?',
+        quiz: newLearning.quiz?.length ? newLearning.quiz : [{
+          question: '🧠 AI is generating quiz questions...',
           options: [
-            'Understanding core principles',
-            'Exploring new ideas',
-            'Building practical knowledge',
-            'Developing learning strategies'
+            'Quiz questions are being generated',
+            'Please wait while AI processes your content',
+            'This will be updated automatically',
+            'Agent system is working'
           ],
-          answer: 'Exploring new ideas',
-          explanation: 'Learning involves exploring new ideas to expand knowledge.'
+          answer: 'This will be updated automatically',
+          explanation: 'Our AI agents are analyzing your learning content to generate relevant quiz questions.'
         }]
       };
 
@@ -513,6 +568,47 @@ export const FocusSessionProvider: React.FC<{ children: ReactNode }> = ({ childr
         }
       });
 
+      // Start polling for updates from agent system
+      const pollForUpdates = async () => {
+        let attempts = 0;
+        const maxAttempts = 10; // Poll for up to 30 seconds (3s intervals)
+
+        const poll = async () => {
+          try {
+            attempts++;
+            console.log(`🔄 Polling for agent updates (attempt ${attempts}/${maxAttempts})...`);
+
+            const updatedCards = await getLearningCards();
+            const targetCard = updatedCards.find(card => card.id === apiLearningCard.id);
+
+            if (targetCard && targetCard.processed) {
+              console.log('✅ Agent processing complete! Updating learning card...');
+              const updatedLearning = convertAPILearningToLearning(targetCard);
+
+              setLearnings(prev =>
+                prev.map(item =>
+                  item.id === updatedLearning.id ? updatedLearning : item
+                )
+              );
+              return; // Stop polling
+            }
+
+            if (attempts < maxAttempts) {
+              setTimeout(poll, 3000); // Poll every 3 seconds
+            } else {
+              console.log('⏰ Polling timeout - agent may still be processing');
+            }
+          } catch (error) {
+            console.error('Error polling for updates:', error);
+          }
+        };
+
+        // Start polling after a short delay
+        setTimeout(poll, 2000);
+      };
+
+      pollForUpdates();
+
       // Safely emit the WebSocket event
       if (socket && typeof socket.emit === 'function') {
         try {
@@ -524,8 +620,11 @@ export const FocusSessionProvider: React.FC<{ children: ReactNode }> = ({ childr
           console.error('Error emitting addLearning event:', error);
         }
       }
+
+      console.log('✅ Learning card created and agent processing started');
     } catch (error) {
-      console.error('Failed to add learning:', error);
+      console.error('❌ Failed to create learning card:', error);
+      throw error;
     }
   };
 

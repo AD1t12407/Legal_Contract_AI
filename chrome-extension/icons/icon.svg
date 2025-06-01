@@ -1,0 +1,6 @@
+<svg width="128" height="128" xmlns="http://www.w3.org/2000/svg">
+  <rect width="128" height="128" fill="#4F46E5" rx="20"/>
+  <text x="64" y="45" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">🧠</text>
+  <text x="64" y="75" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Focus</text>
+  <text x="64" y="95" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">Learn</text>
+</svg>
